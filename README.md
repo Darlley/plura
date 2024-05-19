@@ -1,36 +1,16 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SaaS Website Builder, Project Management And Dashboard With Stripe using Nextjs14, Bun, Stripe Connect, Prisma, MySQL, Tailwind
+---
 
-## Getting Started
+![thumbnail](https://camo.githubusercontent.com/289ba48b3b93dacd92c289d05cfe3ef0238934f99a90680fb1f81ad60a757bfd/68747470733a2f2f73746f726167652e676f6f676c65617069732e636f6d2f6d7367736e64722f307774535865786c50684d4e313934356f6f78572f6d656469612f3635623763336432343636303437376461663364363730382e706e67)
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## LIBS
+1. https://bun.sh/
+1. https://www.mysql.com/
+1. https://nextjs.org/
+1. https://tailwindcss.com/
+1. https://ui.shadcn.com/
+1. https://gradient.page/tools/shadcn-ui-theme-generator
+1. https://bg.ibelick.com/
+1. https://uploadthing.com/
+1. https://clerk.com/
