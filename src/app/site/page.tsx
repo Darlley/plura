@@ -36,7 +36,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="flex justify-center items-center flex-col gap-4 md:!mt-20 mt-[-60px]">
+      <section id="precos" className="flex justify-center items-center flex-col gap-4 md:!mt-20 mt-[-60px]">
         <h2 className="text-4xl text-center"> Choose what fits you right</h2>
         <p className="text-muted-foreground text-center">
           Our straightforward pricing plans are tailored to meet your needs. If
