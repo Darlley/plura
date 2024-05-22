@@ -18,7 +18,7 @@ importers:
         specifier: ^3.3.3
         version: 3.4.0(react-hook-form@7.51.4(react@18.3.1))
       '@prisma/client':
-        specifier: ^5.7.1
+        specifier: ^5.14.0
         version: 5.14.0(prisma@5.14.0)
       '@radix-ui/react-accordion':
         specifier: ^1.1.2
@@ -202,7 +202,7 @@ importers:
         specifier: ^18
         version: 18.3.0
       autoprefixer:
-        specifier: ^10.0.1
+        specifier: ^10.4.19
         version: 10.4.19(postcss@8.4.38)
       eslint:
         specifier: ^8
@@ -211,10 +211,10 @@ importers:
         specifier: 14.0.4
         version: 14.0.4(eslint@8.57.0)(typescript@5.4.5)
       postcss:
-        specifier: ^8
+        specifier: ^8.4.38
         version: 8.4.38
       tailwindcss:
-        specifier: ^3.3.0
+        specifier: ^3.4.3
         version: 3.4.3
       typescript:
         specifier: ^5

@@ -6,13 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "studio": "prisma studio"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.1",
     "@clerk/themes": "^1.7.9",
     "@hookform/resolvers": "^3.3.3",
-    "@prisma/client": "^5.7.1",
+    "@prisma/client": "^5.14.0",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-aspect-ratio": "^1.0.3",
