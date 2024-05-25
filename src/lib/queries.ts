@@ -1,7 +1,7 @@
 'use server';
 
 import { clerkClient, currentUser } from '@clerk/nextjs';
-import { User } from '@prisma/client';
+import { Agency, User } from '@prisma/client';
 import { redirect } from 'next/navigation';
 import { db } from './db';
 
@@ -170,4 +170,14 @@ export const verifyAndAcceptInvitation = async () => {
   }
 };
 
+export const updateAgencyDetail = async (
+  agencyId: string,
+  agencyDetails: Partial<Agency>
+) => {
+  const response = await db.agency.update({
+    where: { id: agencyId },
+    data: { ...agencyDetails },
+  });
 
+  return response
+};
