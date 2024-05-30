@@ -1,7 +1,11 @@
+import { Toaster } from '@/components/ui/toaster';
+import ModalProvider from '@/providers/modal-provider';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { DM_Sans } from 'next/font/google';
 import './globals.css';
 const fonts = DM_Sans({ subsets: ['latin'] });
+
+import { Toaster as Sonner } from 'sonner'
 
 export const metadata = {
   title: 'Plura',
@@ -22,7 +26,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <ModalProvider>
           {children}
+            <Toaster />
+            <Sonner />
+          </ModalProvider>
         </ThemeProvider>
       </body>
     </html>

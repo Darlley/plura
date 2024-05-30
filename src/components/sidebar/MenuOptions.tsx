@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  Agency,
   AgencySidebarOption,
   SubAccount,
   SubAccountSidebarOption,
@@ -23,6 +24,10 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Separator } from '../ui/separator';
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from '../ui/sheet';
+import { useModal } from '@/providers/modal-provider';
+import CustomModal from '../global/custom-modal';
+import SubAccountDetails from '../forms/subaccount-details';
+import { icons } from '@/lib/constants';
 
 type Props = {
   defaultOpen?: boolean;
@@ -44,7 +49,10 @@ export default function MenuOptions(props: Props) {
     defaultOpen,
   } = props;
 
+  const {setOpen} = useModal()
+
   const [isMounted, setIsMounted] = useState(false);
+
 
   const openState = useMemo(
     () => (defaultOpen ? { open: true } : {}),
@@ -226,12 +234,13 @@ export default function MenuOptions(props: Props) {
                           <CustomModal
                             title="Create A Subaccount"
                             subheading="You can switch between your agency account and the subaccount from the sidebar"
+                            defaultOpen={true}
                           >
-                            {/* <SubAccountDetails
+                            <SubAccountDetails
                               agencyDetails={user?.Agency as Agency}
                               userId={user?.id as string}
                               userName={user?.name}
-                            /> */}
+                            />
                           </CustomModal>
                         );
                       }}
