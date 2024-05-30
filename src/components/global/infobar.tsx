@@ -1,4 +1,5 @@
 'use client'
+import { NotificationWithUser } from '@/lib/types'
 import { UserButton } from '@clerk/nextjs'
 import React, { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -16,7 +17,6 @@ import { Card } from '../ui/card'
 import { Switch } from '../ui/switch'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { ModeToggle } from './mode-toggle'
-import { NotificationWithUser } from '@/lib/types'
 
 type Props = {
   notifications: NotificationWithUser | []
@@ -59,7 +59,7 @@ const InfoBar = ({ notifications, subAccountId, className, role }: Props) => {
                 <Bell size={17} />
               </div>
             </SheetTrigger>
-            <SheetContent className="mt-4 mr-4 pr-4 overflow-scroll">
+            <SheetContent showX={true} className="mt-4 mr-4 pr-4 overflow-scroll">
               <SheetHeader className="text-left">
                 <SheetTitle>Notifications</SheetTitle>
                 <SheetDescription>

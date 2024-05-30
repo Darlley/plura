@@ -1,13 +1,14 @@
 import { Toaster } from '@/components/ui/toaster';
 import ModalProvider from '@/providers/modal-provider';
 import { ThemeProvider } from '@/providers/theme-provider';
+import type { Metadata } from 'next';
 import { DM_Sans } from 'next/font/google';
+import { Toaster as SonnarToaster } from 'sonner';
 import './globals.css';
-const fonts = DM_Sans({ subsets: ['latin'] });
 
-import { Toaster as Sonner } from 'sonner'
+const font = DM_Sans({ subsets: ['latin'] });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Plura',
   description: 'All in one Agency Solution',
 };
@@ -18,8 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR">
-      <body className={fonts.className}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={font.className}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -27,9 +28,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <ModalProvider>
-          {children}
+            {children}
             <Toaster />
-            <Sonner />
+            <SonnarToaster position="bottom-left" />
           </ModalProvider>
         </ThemeProvider>
       </body>

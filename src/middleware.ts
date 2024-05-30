@@ -1,30 +1,36 @@
 import { authMiddleware } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 
+// This example protects all routes including api/trpc routes
+// Please edit this to allow other routes to be public as needed.
+// See https://clerk.com/docs/references/nextjs/auth-middleware for more information about configuring your Middleware
 export default authMiddleware({
   publicRoutes: ['/site', '/api/uploadthing'],
   async beforeAuth(auth, req) {},
   async afterAuth(auth, req) {
+    //rewrite for domains
     const url = req.nextUrl;
-    const SEARCH_PARAMS = url.searchParams.toString();
-    const HOSTNAME = req.headers;
+    const searchParams = url.searchParams.toString();
+    let hostname = req.headers;
 
-    const PATH_WITH_SEARCH_PARAMS =
-      url.pathname + (SEARCH_PARAMS.length > 0 ? `?${SEARCH_PARAMS}` : '');
+    const pathWithSearchParams = `${url.pathname}${
+      searchParams.length > 0 ? `?${searchParams}` : ''
+    }`;
 
-    // se o subdomínio existir
-    const CUSTOM_SUBDOMAIN = HOSTNAME.get('host')
+    //if subdomain exists
+    const customSubDomain = hostname
+      .get('host')
       ?.split(`${process.env.NEXT_PUBLIC_DOMAIN}`)
       .filter(Boolean)[0];
 
-    if (CUSTOM_SUBDOMAIN) {
+    if (customSubDomain) {
       return NextResponse.rewrite(
-        new URL(`/${CUSTOM_SUBDOMAIN}${PATH_WITH_SEARCH_PARAMS}`, req.url)
+        new URL(`/${customSubDomain}${pathWithSearchParams}`, req.url)
       );
     }
 
     if (url.pathname === '/sign-in' || url.pathname === '/sign-up') {
-      return NextResponse.redirect(new URL('/agency/sign-in', req.url));
+      return NextResponse.redirect(new URL(`/agency/sign-in`, req.url));
     }
 
     if (
@@ -38,13 +44,11 @@ export default authMiddleware({
       url.pathname.startsWith('/agency') ||
       url.pathname.startsWith('/subaccount')
     ) {
-      return NextResponse.rewrite(
-        new URL(`${PATH_WITH_SEARCH_PARAMS}`, req.url)
-      );
+      return NextResponse.rewrite(new URL(`${pathWithSearchParams}`, req.url));
     }
   },
 });
 
 export const config = {
-  matcher: ['/((?!.*\\..*|_next).*)', '/', '/(api|trpc)(.*)'],
+  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
 };

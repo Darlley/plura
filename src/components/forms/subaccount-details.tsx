@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import * as z from 'zod'
-import { v4 } from 'uuid'
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { v4 } from 'uuid';
+import * as z from 'zod';
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -13,25 +13,25 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { useRouter } from 'next/navigation'
+} from '@/components/ui/form';
+import { useRouter } from 'next/navigation';
 
-import { Input } from '@/components/ui/input'
 import {
   Card,
+  CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
-  CardContent,
-} from '@/components/ui/card'
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 
-import { Agency, SubAccount } from '@prisma/client'
-import { useToast } from '../ui/use-toast'
-import { saveActivityLogsNotification, upsertSubAccount } from '@/lib/queries'
-import { useEffect } from 'react'
-import Loading from '../global/loading'
-import { useModal } from '@/providers/modal-provider'
-import FileUpload from '../global/FileUpload'
+import { saveActivityLogsNotification, upsertSubAccount } from '@/lib/queries';
+import { useModal } from '@/providers/modal-provider';
+import { Agency, SubAccount } from '@prisma/client';
+import { useEffect } from 'react';
+import FileUpload from '../global/file-upload';
+import Loading from '../global/loading';
+import { useToast } from '../ui/use-toast';
 
 const formSchema = z.object({
   name: z.string(),
@@ -43,7 +43,7 @@ const formSchema = z.object({
   zipCode: z.string(),
   state: z.string(),
   country: z.string(),
-})
+});
 
 //CHALLENGE Give access for Subaccount Guest they should see a different view maybe a form that allows them to create tickets
 
@@ -51,10 +51,10 @@ const formSchema = z.object({
 
 interface SubAccountDetailsProps {
   //To add the sub account to the agency
-  agencyDetails: Agency
-  details?: Partial<SubAccount>
-  userId: string
-  userName: string
+  agencyDetails: Agency;
+  details?: Partial<SubAccount>;
+  userId: string;
+  userName: string;
 }
 
 const SubAccountDetails: React.FC<SubAccountDetailsProps> = ({
@@ -63,9 +63,9 @@ const SubAccountDetails: React.FC<SubAccountDetailsProps> = ({
   userId,
   userName,
 }) => {
-  const { toast } = useToast()
-  const { setClose } = useModal()
-  const router = useRouter()
+  const { toast } = useToast();
+  const { setClose } = useModal();
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -79,7 +79,7 @@ const SubAccountDetails: React.FC<SubAccountDetailsProps> = ({
       country: details?.country,
       subAccountLogo: details?.subAccountLogo,
     },
-  })
+  });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -99,37 +99,37 @@ const SubAccountDetails: React.FC<SubAccountDetailsProps> = ({
         agencyId: agencyDetails.id,
         connectAccountId: '',
         goal: 5000,
-      })
-      if (!response) throw new Error('No response from server')
+      });
+      if (!response) throw new Error('No response from server');
       await saveActivityLogsNotification({
         agencyId: response.agencyId,
         description: `${userName} | updated sub account | ${response.name}`,
         subaccountId: response.id,
-      })
+      });
 
       toast({
         title: 'Subaccount details saved',
         description: 'Successfully saved your subaccount details.',
-      })
+      });
 
-      setClose()
-      router.refresh()
+      setClose();
+      router.refresh();
     } catch (error) {
       toast({
         variant: 'destructive',
         title: 'Oppse!',
         description: 'Could not save sub account details.',
-      })
+      });
     }
   }
 
   useEffect(() => {
     if (details) {
-      form.reset(details)
+      form.reset(details);
     }
-  }, [details])
+  }, [details]);
 
-  const isLoading = form.formState.isSubmitting
+  const isLoading = form.formState.isSubmitting;
   //CHALLENGE Create this form.
   return (
     <Card className="w-full">
@@ -139,10 +139,7 @@ const SubAccountDetails: React.FC<SubAccountDetailsProps> = ({
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-4"
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               disabled={isLoading}
               control={form.control}
@@ -188,10 +185,7 @@ const SubAccountDetails: React.FC<SubAccountDetailsProps> = ({
                   <FormItem className="flex-1">
                     <FormLabel>Acount Email</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="Email"
-                        {...field}
-                      />
+                      <Input placeholder="Email" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -207,11 +201,7 @@ const SubAccountDetails: React.FC<SubAccountDetailsProps> = ({
                   <FormItem className="flex-1">
                     <FormLabel>Acount Phone Number</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="Phone"
-                        required
-                        {...field}
-                      />
+                      <Input placeholder="Phone" required {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -227,11 +217,7 @@ const SubAccountDetails: React.FC<SubAccountDetailsProps> = ({
                 <FormItem className="flex-1">
                   <FormLabel>Address</FormLabel>
                   <FormControl>
-                    <Input
-                      required
-                      placeholder="123 st..."
-                      {...field}
-                    />
+                    <Input required placeholder="123 st..." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -246,11 +232,7 @@ const SubAccountDetails: React.FC<SubAccountDetailsProps> = ({
                   <FormItem className="flex-1">
                     <FormLabel>City</FormLabel>
                     <FormControl>
-                      <Input
-                        required
-                        placeholder="City"
-                        {...field}
-                      />
+                      <Input required placeholder="City" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -264,11 +246,7 @@ const SubAccountDetails: React.FC<SubAccountDetailsProps> = ({
                   <FormItem className="flex-1">
                     <FormLabel>State</FormLabel>
                     <FormControl>
-                      <Input
-                        required
-                        placeholder="State"
-                        {...field}
-                      />
+                      <Input required placeholder="State" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -282,11 +260,7 @@ const SubAccountDetails: React.FC<SubAccountDetailsProps> = ({
                   <FormItem className="flex-1">
                     <FormLabel>Zipcpde</FormLabel>
                     <FormControl>
-                      <Input
-                        required
-                        placeholder="Zipcode"
-                        {...field}
-                      />
+                      <Input required placeholder="Zipcode" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -301,27 +275,20 @@ const SubAccountDetails: React.FC<SubAccountDetailsProps> = ({
                 <FormItem className="flex-1">
                   <FormLabel>Country</FormLabel>
                   <FormControl>
-                    <Input
-                      required
-                      placeholder="Country"
-                      {...field}
-                    />
+                    <Input required placeholder="Country" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button
-              type="submit"
-              disabled={isLoading}
-            >
+            <Button type="submit" disabled={isLoading}>
               {isLoading ? <Loading /> : 'Save Account Information'}
             </Button>
           </form>
         </Form>
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
-export default SubAccountDetails
+export default SubAccountDetails;

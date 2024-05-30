@@ -1,29 +1,30 @@
-'use client'
-
 import { getAuthUserDetails } from '@/lib/queries';
-import MenuOptions from './MenuOptions';
+import MenuOptions from './menu-options';
 
 type Props = {
   id: string;
   type: 'agency' | 'subaccount';
 };
-export default async function index({ id, type }: Props) {
+
+const Sidebar = async ({ id, type }: Props) => {
   const user = await getAuthUserDetails();
-  if (!user?.Agency) return null;
+  if (!user) return null;
+
+  if (!user.Agency) return;
 
   const details =
     type === 'agency'
       ? user?.Agency
       : user?.Agency.SubAccount.find((subaccount) => subaccount.id === id);
 
-  const isWhiteLabelAgency = user.Agency.whiteLabel;
+  const isWhiteLabeledAgency = user.Agency.whiteLabel;
   if (!details) return;
 
-  let sidebarLogo = user?.Agency?.agencyLogo || '/assets/plura-logo.svg';
+  let sideBarLogo = user.Agency.agencyLogo || '/assets/plura-logo.svg';
 
-  if (!isWhiteLabelAgency) {
+  if (!isWhiteLabeledAgency) {
     if (type === 'subaccount') {
-      sidebarLogo =
+      sideBarLogo =
         user?.Agency.SubAccount.find((subaccount) => subaccount.id === id)
           ?.subAccountLogo || user.Agency.agencyLogo;
     }
@@ -48,20 +49,21 @@ export default async function index({ id, type }: Props) {
         defaultOpen={true}
         details={details}
         id={id}
-        sidebarLogo={sidebarLogo}
+        sidebarLogo={sideBarLogo}
         sidebarOpt={sidebarOpt}
         subAccounts={subaccounts}
         user={user}
       />
       <MenuOptions
-        defaultOpen={true}
         details={details}
         id={id}
-        sidebarLogo={sidebarLogo}
+        sidebarLogo={sideBarLogo}
         sidebarOpt={sidebarOpt}
         subAccounts={subaccounts}
         user={user}
       />
     </>
   );
-}
+};
+
+export default Sidebar;
